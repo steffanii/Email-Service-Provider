@@ -8,7 +8,7 @@ export async function saveIntegration(req:Request, res: Response) {
         const {provider, apiKey} = req.body;
 
         if (provider === "mailchimp") await validateMailchimp(apiKey);
-        if (provider === "getresponse") await validateGetResponse(apiKey);
+        if (provider === "getResponse") await validateGetResponse(apiKey);
 
         const integration  = new Integration({ provider, apiKey});
         await integration.save();
@@ -30,7 +30,7 @@ export async function fetchLists(req: Request, res: Response) {
 
         let lists;
         if (provider === "mailchimp") lists = await getMailchimpLists(integration.apiKey);
-        if (provider === "getresponse") lists = await getGetResponseLists(integration.apiKey);
+        if (provider === "getResponse") lists = await getGetResponseLists(integration.apiKey);
 
         res.json({lists});
     } catch (error: any) {
